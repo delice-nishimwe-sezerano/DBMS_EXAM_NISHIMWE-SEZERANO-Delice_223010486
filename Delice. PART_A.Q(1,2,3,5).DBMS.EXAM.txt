@@ -1,0 +1,482 @@
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| client_master      |
+| delice             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| ruhande            |
+| school             |
+| school1            |
+| student3           |
+| studentdb          |
+| sys                |
++--------------------+
+11 rows in set (0.02 sec)
+
+mysql> use Client_Master;
+Database changed
+mysql> create table clients(Client_No primary key varchar(250),Names varchar(250),Address varchar(250),City varchar(250),State varchar(250),Bal_Due varchar(250));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key varchar(250),Names varchar(250),Address varchar(250),City varchar(25' at line 1
+mysql> create table clients(Client_No primary_key varchar(250), Names varchar(250), Address varchar(250), City varchar(250), State va
+rchar(250), Bal_Due varchar(250));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary_key varchar(250), Names varchar(250), Address varchar(250), City varchar' at line 1
+mysql> create table clients(Client_No varchar(250) primary key, Names varchar(250), Address varchar(250), City varchar(250), State va
+rchar(250), Bal_Due varchar(250));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc clients;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| Client_No | varchar(250) | NO   | PRI | NULL    |       |
+| Names     | varchar(250) | YES  |     | NULL    |       |
+| Address   | varchar(250) | YES  |     | NULL    |       |
+| City      | varchar(250) | YES  |     | NULL    |       |
+| State     | varchar(250) | YES  |     | NULL    |       |
+| Bal_Due   | varchar(250) | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+
+mysql> Insert into clients('1','Amina Diane','Kigali_Nyarutarama','Kigali','Kigali','5000');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''1','Amina Diane','Kigali_Nyarutarama','Kigali','Kigali','5000')' at line 1
+mysql> Insert into clients values('01','Amina Diane','Kigali_street120','Kigali','Kigali','5000');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> Insert into clients values('02','Amani Davi','Mombasa_street120','Mombasa','Nairobi','9000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into clients values('03','Niyigena Jolly','Canada_street120','America','Canada','6000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into clients values('04','Mutesi Jolly','Musanze_street120','Kigali','Musanze','6200');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into clients values('05','Ishimwe Oscar','Mamba_street120','kigali','Mamba','5100');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from clients;
++-----------+----------------+-------------------+---------+---------+---------+
+| Client_No | Names          | Address           | City    | State   | Bal_Due |
++-----------+----------------+-------------------+---------+---------+---------+
+| 01        | Amina Diane    | Kigali_street120  | Kigali  | Kigali  | 5000    |
+| 02        | Amani Davi     | Mombasa_street120 | Mombasa | Nairobi | 9000    |
+| 03        | Niyigena Jolly | Canada_street120  | America | Canada  | 6000    |
+| 04        | Mutesi Jolly   | Musanze_street120 | Kigali  | Musanze | 6200    |
+| 05        | Ishimwe Oscar  | Mamba_street120   | kigali  | Mamba   | 5100    |
++-----------+----------------+-------------------+---------+---------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select Names from clients where Bal_Due>'5000';
++----------------+
+| Names          |
++----------------+
+| Amani Davi     |
+| Niyigena Jolly |
+| Mutesi Jolly   |
+| Ishimwe Oscar  |
++----------------+
+4 rows in set (0.01 sec)
+
+mysql> alter table clients rename column Bal_Due to BALANCE;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from clients;
++-----------+----------------+-------------------+---------+---------+---------+
+| Client_No | Names          | Address           | City    | State   | BALANCE |
++-----------+----------------+-------------------+---------+---------+---------+
+| 01        | Amina Diane    | Kigali_street120  | Kigali  | Kigali  | 5000    |
+| 02        | Amani Davi     | Mombasa_street120 | Mombasa | Nairobi | 9000    |
+| 03        | Niyigena Jolly | Canada_street120  | America | Canada  | 6000    |
+| 04        | Mutesi Jolly   | Musanze_street120 | Kigali  | Musanze | 6200    |
+| 05        | Ishimwe Oscar  | Mamba_street120   | kigali  | Mamba   | 5100    |
++-----------+----------------+-------------------+---------+---------+---------+
+5 rows in set (0.00 sec)
+
+mysql> alter table clients change BALANCE='6000' to BALANCE='5100' where Client_No='03';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '='6000' to BALANCE='5100' where Client_No='03'' at line 1
+mysql> alter table clients rename BALANCE='6000' to BALANCE='5100' where Client_No='03';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '='6000' to BALANCE='5100' where Client_No='03'' at line 1
+mysql> alter table clients rename BALANCE '=6000' to BALANCE '=5100' where Client_No'=03';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''=6000' to BALANCE '=5100' where Client_No'=03'' at line 1
+mysql>
+
+PART_B.QUESTION(6;A,B,C,E)
+
+mysql> create table DEPARTMENTS(Dpr_No varchar(250) primary key, Dpr_Names varchar(250), Dpr_Functions varchar(250), Dpr_Location var
+char(250), Dpr_Managers varchar(250));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> Desc DEPARTMENTS;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| Dpr_No        | varchar(250) | NO   | PRI | NULL    |       |
+| Dpr_Names     | varchar(250) | YES  |     | NULL    |       |
+| Dpr_Functions | varchar(250) | YES  |     | NULL    |       |
+| Dpr_Location  | varchar(250) | YES  |     | NULL    |       |
+| Dpr_Managers  | varchar(250) | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> Insert into DEPARTMENTS values('1','Vania','FINANCE','Mamba','Betty');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into DEPARTMENTS values('2','Belyse','Marketing','Batima','David');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into DEPARTMENTS values('3','Iranzi','ICT','Ruhande','Davi');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into DEPARTMENTS values('4','Delice','SALES','KOICA','Divine');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into DEPARTMENTS values('5','Rodrigue','FOREST','CVM','livine');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from DEPARTMENTS;
++--------+-----------+---------------+--------------+--------------+
+| Dpr_No | Dpr_Names | Dpr_Functions | Dpr_Location | Dpr_Managers |
++--------+-----------+---------------+--------------+--------------+
+| 1      | Vania     | FINANCE       | Mamba        | Betty        |
+| 2      | Belyse    | Marketing     | Batima       | David        |
+| 3      | Iranzi    | ICT           | Ruhande      | Davi         |
+| 4      | Delice    | SALES         | KOICA        | Divine       |
+| 5      | Rodrigue  | FOREST        | CVM          | livine       |
++--------+-----------+---------------+--------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> create table EMPLOYEES(E_No varchar(250) primary key, E_Names varchar(250), E_Functions varchar(250), E_Location varchar(250),
+ E_Salary varchar(250));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> Desc EMPLOYEES;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| E_No        | varchar(250) | NO   | PRI | NULL    |       |
+| E_Names     | varchar(250) | YES  |     | NULL    |       |
+| E_Functions | varchar(250) | YES  |     | NULL    |       |
+| E_Location  | varchar(250) | YES  |     | NULL    |       |
+| E_Salary    | varchar(250) | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> Insert into EMPLOYEES values('1','Rodrigue','Cashier','Huye','700000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into EMPLOYEES values('2','David','Manager','Cyarwa','900000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into EMPLOYEES values('3','Adeline','Receptionist','Kigali','500000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into EMPLOYEES values('4','Delice','CEO','Musanze','1000000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into EMPLOYEES values('5','Vania','Cleaner','Huye','40000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from EMPLOYEES;
++------+----------+--------------+------------+----------+
+| E_No | E_Names  | E_Functions  | E_Location | E_Salary |
++------+----------+--------------+------------+----------+
+| 1    | Rodrigue | Cashier      | Huye       | 700000   |
+| 2    | David    | Manager      | Cyarwa     | 900000   |
+| 3    | Adeline  | Receptionist | Kigali     | 500000   |
+| 4    | Delice   | CEO          | Musanze    | 1000000  |
+| 5    | Vania    | Cleaner      | Huye       | 40000    |
++------+----------+--------------+------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select DEPARTMENTS.Dpr_No,EMPLOYEES.E_No from DEPARTMENTS left join EMPLOYEES on DEPARTMENTS.Names=EMPLOYEES.Names;
+ERROR 1054 (42S22): Unknown column 'DEPARTMENTS.Names' in 'on clause'
+mysql> select DEPARTMENTS.Dpr_No,EMPLOYEES.E_No from DEPARTMENTS left join EMPLOYEES on Dpr.Names=E.Names;
+ERROR 1054 (42S22): Unknown column 'Dpr.Names' in 'on clause'
+mysql> select DEPARTMENTS.Dpr_No,EMPLOYEES.E_No from DEPARTMENTS left join EMPLOYEES on DEPARTMENTS.Dpr_Names=EMPLOYEES.E_Names;
++--------+------+
+| Dpr_No | E_No |
++--------+------+
+| 1      | 5    |
+| 2      | NULL |
+| 3      | NULL |
+| 4      | 4    |
+| 5      | 1    |
++--------+------+
+5 rows in set (0.00 sec)
+
+mysql> select DEPARTMENTS.Dpr_No,EMPLOYEES.E_No from DEPARTMENTS right join EMPLOYEES on DEPARTMENTS.Dpr_Names=EMPLOYEES.E_Names;
++--------+------+
+| Dpr_No | E_No |
++--------+------+
+| 5      | 1    |
+| NULL   | 2    |
+| NULL   | 3    |
+| 4      | 4    |
+| 1      | 5    |
++--------+------+
+5 rows in set (0.00 sec)
+
+mysql> select Avg(E_Salary) from EMPLOYEES;
++---------------+
+| Avg(E_Salary) |
++---------------+
+|        628000 |
++---------------+
+1 row in set (0.01 sec)
+
+mysql> select E_Names from EMPLOYEES where E_Salary>'628000';
++----------+
+| E_Names  |
++----------+
+| Rodrigue |
+| David    |
++----------+
+2 rows in set (0.00 sec)
+
+mysql>QUESTIONS.7(1,2,3,4,5)
+
+mysql> create table STUDENT(Studentid varchar(5) primary key, Fullnames varchar(25), Gender varchar(6), Age int(2), Department varcha
+r(30));
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> Desc STUDENT;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Studentid  | varchar(5)  | NO   | PRI | NULL    |       |
+| Fullnames  | varchar(25) | YES  |     | NULL    |       |
+| Gender     | varchar(6)  | YES  |     | NULL    |       |
+| Age        | int         | YES  |     | NULL    |       |
+| Department | varchar(30) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> Insert into STUDENT values('1','Vania Uwera','Female','12','Business');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into STUDENT values('2','Yemima Uwera','Female','15','Marketing');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into STUDENT values('3','Deborah Uwase','Female','16','Economics');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into STUDENT values('4','Deborah Niyigena','Female','13','Finance');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into STUDENT values('5','Deborah Iranzi','Female','24','Finance');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into STUDENT values('6','David Iranzi','Male','24','Finance');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into STUDENT values('7','Cloude Iranzi','Male','22','Economics');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into STUDENT values('8','Cloude Irankunda','Male','18','Economics');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into STUDENT values('9','Yves MUfasha','Male','17','Business');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into STUDENT values('10','David MUfasha','Male','20','Business');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from STUDENT;
++-----------+------------------+--------+------+------------+
+| Studentid | Fullnames        | Gender | Age  | Department |
++-----------+------------------+--------+------+------------+
+| 1         | Vania Uwera      | Female |   12 | Business   |
+| 2         | Yemima Uwera     | Female |   15 | Marketing  |
+| 3         | Deborah Uwase    | Female |   16 | Economics  |
+| 4         | Deborah Niyigena | Female |   13 | Finance    |
+| 5         | Deborah Iranzi   | Female |   24 | Finance    |
+| 6         | David Iranzi     | Male   |   24 | Finance    |
+| 7         | Cloude Iranzi    | Male   |   22 | Economics  |
+| 8         | Cloude Irankunda | Male   |   18 | Economics  |
+| 9         | Yves MUfasha     | Male   |   17 | Business   |
+| 10        | David MUfasha    | Male   |   20 | Business   |
++-----------+------------------+--------+------+------------+
+10 rows in set (0.00 sec)
+
+
+PART_C QUESTION(9)
+
+mysql> create table EMPLOYEES1(Employee_id varchar(5) primary key, First_names varchar(250), Last_names varchar(250), Email varchar(2
+50), Phone_number varchar(30), Hire_date varchar(250), Job_id varchar(40), Salary varchar(250), Commission_pct int(3), Manager_id var
+char(30), Departments_id varchar(30));
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> Desc EMPLOYEES1;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| Employee_id    | varchar(5)   | NO   | PRI | NULL    |       |
+| First_names    | varchar(250) | YES  |     | NULL    |       |
+| Last_names     | varchar(250) | YES  |     | NULL    |       |
+| Email          | varchar(250) | YES  |     | NULL    |       |
+| Phone_number   | varchar(30)  | YES  |     | NULL    |       |
+| Hire_date      | varchar(250) | YES  |     | NULL    |       |
+| Job_id         | varchar(40)  | YES  |     | NULL    |       |
+| Salary         | varchar(250) | YES  |     | NULL    |       |
+| Commission_pct | int          | YES  |     | NULL    |       |
+| Manager_id     | varchar(30)  | YES  |     | NULL    |       |
+| Departments_id | varchar(30)  | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+
+mysql> Insert into EMPLOYEES1 values('1','David','MUfasha','mufasha@gmail.com','0788888885','12.5.2024','11','7000','20%','100','40')
+;
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> Insert into EMPLOYEES1 values('2','Oscar','Niyigena','niyigena@gmail.com','0788888865','12.6.2024','22','4800','2%','200','60'
+);
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> Insert into EMPLOYEES1 values('3','Vestine','Ishimwe','ishimwe@gmail.com','0788888165','12.6.2014','33','5800','6%','300','70'
+);
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> Insert into EMPLOYEES1 values('4','Vestine','Ashimwe','ashimwe@gmail.com','0788883165','15.6.2014','33','5300','7%','400','80'
+);
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> Insert into EMPLOYEES1 values('5','Shema','AUSTIN','austin@gmail.com','0788813165','15.6.2016','55','8000','7%','500','90');0');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+5 rows in set (0.00 sec)
+
+mysql> select * from EMPLOYEES1;
++-------------+-------------+------------+--------------------+--------------+-----------+--------+--------+----------------+------------+----------------+
+| Employee_id | First_names | Last_names | Email              | Phone_number | Hire_date | Job_id | Salary | Commission_pct | Manager_id | Departments_id |
++-------------+-------------+------------+--------------------+--------------+-----------+--------+--------+----------------+------------+----------------+
+| 1           | David       | MUfasha    | mufasha@gmail.com  | 0788888885   | 12.5.2024 | 11     | 7000   |             20 | 100        | 40             |
+| 2           | Oscar       | Niyigena   | niyigena@gmail.com | 0788888865   | 12.6.2024 | 22     | 4800   |              2 | 200        | 60             |
+| 3           | Vestine     | Ishimwe    | ishimwe@gmail.com  | 0788888165   | 12.6.2014 | 33     | 5800   |              6 | 300        | 70             |
+| 4           | Vestine     | Ashimwe    | ashimwe@gmail.com  | 0788883165   | 15.6.2014 | 33     | 5300   |              7 | 400        | 80             |
+| 5           | Shema       | AUSTIN     | austin@gmail.com   | 0788813165   | 15.6.2016 | 55     | 8000   |              7 | 500        | 90             |
++-------------+-------------+------------+--------------------+--------------+-----------+--------+--------+----------------+------------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select Employee_id,First_names,Last_names,Salary from EMPLOYEES1;
++-------------+-------------+------------+--------+
+| Employee_id | First_names | Last_names | Salary |
++-------------+-------------+------------+--------+
+| 1           | David       | MUfasha    | 7000   |
+| 2           | Oscar       | Niyigena   | 4800   |
+| 3           | Vestine     | Ishimwe    | 5800   |
+| 4           | Vestine     | Ashimwe    | 5300   |
+| 5           | Shema       | AUSTIN     | 8000   |
++-------------+-------------+------------+--------+
+
+mysql> select Employee_id from EMPLOYEES1 where manager_id='100';
++-------------+
+| Employee_id |
++-------------+
+| 1           |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select First_names,Last_names from EMPLOYEES1 where Salary>='4800';
++-------------+------------+
+| First_names | Last_names |
++-------------+------------+
+| David       | MUfasha    |
+| Oscar       | Niyigena   |
+| Vestine     | Ishimwe    |
+| Vestine     | Ashimwe    |
+| Shema       | AUSTIN     |
++-------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from EMPLOYEES1 where Last_names like 'AUSTIN%';
++-------------+-------------+------------+------------------+--------------+-----------+--------+--------+----------------+------------+----------------+
+| Employee_id | First_names | Last_names | Email            | Phone_number | Hire_date | Job_id | Salary | Commission_pct | Manager_id | Departments_id |
++-------------+-------------+------------+------------------+--------------+-----------+--------+--------+----------------+------------+----------------+
+| 5           | Shema       | AUSTIN     | austin@gmail.com | 0788813165   | 15.6.2016 | 55     | 8000   |              7 | 500        | 90             |
++-------------+-------------+------------+------------------+--------------+-----------+--------+--------+----------------+------------+----------------+
+1 row in set (0.00 sec)
+
+
+mysql> select Last_names,First_names from EMPLOYEES1 where Departments_id in('60','70','80');
++------------+-------------+
+| Last_names | First_names |
++------------+-------------+
+| Niyigena   | Oscar       |
+| Ishimwe    | Vestine     |
+| Ashimwe    | Vestine     |
++------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql>QUESTION 10
+
+mysql> create table SALES(Sales_No varchar(200) primary key, Salesname varchar(200), Branch varchar(200), Salesamount varchar(200), D
+OB varchar(200));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc SALES;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| Sales_No    | varchar(200) | NO   | PRI | NULL    |       |
+| Salesname   | varchar(200) | YES  |     | NULL    |       |
+| Branch      | varchar(200) | YES  |     | NULL    |       |
+| Salesamount | varchar(200) | YES  |     | NULL    |       |
+| DOB         | varchar(200) | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> Insert into SALES values('222','Vania','Musanze','300','20-OCT-12');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into SALES values('333','David','NYIRANGARAMA','200','20-OCT-09');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into SALES values('444','Clement','Kigali','100','20-DEC-09');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into SALES values('555','Clementine','Kacyiru','700','20-SEPT-09');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into SALES values('666','Olive','Kigarama','300','20-SEPT-11');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from SALES;
++----------+------------+--------------+-------------+------------+
+| Sales_No | Salesname  | Branch       | Salesamount | DOB        |
++----------+------------+--------------+-------------+------------+
+| 222      | Vania      | Musanze      | 300         | 20-OCT-12  |
+| 333      | David      | NYIRANGARAMA | 200         | 20-OCT-09  |
+| 444      | Clement    | Kigali       | 100         | 20-DEC-09  |
+| 555      | Clementine | Kacyiru      | 700         | 20-SEPT-09 |
+| 666      | Olive      | Kigarama     | 300         | 20-SEPT-11 |
++----------+------------+--------------+-------------+------------+
+5 rows in set (0.00 sec
+ss
+mysql> select sum(Salesamount) from SALES;
++------------------+
+| sum(Salesamount) |
++------------------+
+|             1600 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select Avg(Salesamount) from SALES;
++------------------+
+| Avg(Salesamount) |
++------------------+
+|              320 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select*from SALES where DOB='20-DEC-09';
++----------+-----------+--------+-------------+-----------+
+| Sales_No | Salesname | Branch | Salesamount | DOB       |
++----------+-----------+--------+-------------+-----------+
+| 444      | Clement   | Kigali | 100         | 20-DEC-09 |
++----------+-----------+--------+-------------+-----------+
+1 row in set (0.00 sec)
